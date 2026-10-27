@@ -9,7 +9,6 @@ from sqlalchemy.exc import SQLAlchemyError
 from app.config import settings
 from app.db import engine
 
-
 logger = logging.getLogger(__name__)
 
 
