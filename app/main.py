@@ -7,7 +7,7 @@ from sqlalchemy import text
 from sqlalchemy.exc import SQLAlchemyError
 
 from app.config import settings
-from app.db import engine
+from app.db.session import engine
 
 logger = logging.getLogger(__name__)
 
