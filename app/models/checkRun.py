@@ -1,8 +1,8 @@
 from datetime import datetime
 from uuid import UUID, uuid4
 
+from sqlalchemy import CheckConstraint, DateTime, ForeignKey, String, Uuid
 from sqlalchemy.orm import Mapped, mapped_column
-from sqlalchemy import String, Uuid, ForeignKey, CheckConstraint
 
 from app.db.base import Base
 
@@ -11,13 +11,17 @@ class CheckRun(Base):
     __tablename__ = "checkRuns"
 
     id: Mapped[UUID] = mapped_column(
-        Uuid(as_uuid=True), primary_key=True, default=uuid4()
+        Uuid(as_uuid=True), primary_key=True, default=uuid4
     )
     monitor_id: Mapped[UUID] = mapped_column(
-        Uuid(as_uuid=True), ForeignKey("monitor.id"), nullable=False
+        Uuid(as_uuid=True), ForeignKey("monitors.id"), nullable=False
     )
-    scheduled_at: Mapped[datetime] = mapped_column(nullable=False)
-    completed_at: Mapped[datetime | None]
+    scheduled_at: Mapped[datetime] = mapped_column(
+        DateTime(timezone=True), nullable=False
+    )
+    completed_at: Mapped[datetime | None] = mapped_column(
+        DateTime(timezone=True), nullable=False
+    )
     status: Mapped[str] = mapped_column(
         String(20),
         CheckConstraint("status IN ('pending', 'running', 'completed')"),
