@@ -9,6 +9,7 @@ COPY requirements.txt requirements-dev.txt ./
 RUN python -m pip install --no-cache-dir -r requirements-dev.txt
 
 COPY pyproject.toml ./
+COPY alembic ./alembic
 COPY app ./app
 
 EXPOSE 8000

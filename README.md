@@ -72,6 +72,7 @@ DATABASE_URL=postgresql+asyncpg://pulsewatch:pulsewatch_dev_password@postgres:54
 docker compose config -q
 docker compose up --build -d
 docker compose ps
+docker compose exec api alembic upgrade head
 ```
 
 При первоначальном запуске API ожидает успешного healthcheck PostgreSQL.

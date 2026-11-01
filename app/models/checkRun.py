@@ -10,6 +10,13 @@ from app.db.base import Base
 class CheckRun(Base):
     __tablename__ = "checkRuns"
 
+    __table_args__ = (
+        CheckConstraint(
+            "status IN ('pending', 'running', 'completed')",
+            name="ck_check_runs_status",
+        ),
+    )
+
     id: Mapped[UUID] = mapped_column(
         Uuid(as_uuid=True), primary_key=True, default=uuid4
     )
@@ -20,11 +27,10 @@ class CheckRun(Base):
         DateTime(timezone=True), nullable=False
     )
     completed_at: Mapped[datetime | None] = mapped_column(
-        DateTime(timezone=True), nullable=False
+        DateTime(timezone=True), nullable=True
     )
     status: Mapped[str] = mapped_column(
         String(20),
-        CheckConstraint("status IN ('pending', 'running', 'completed')"),
         nullable=False,
         default="pending",
     )
